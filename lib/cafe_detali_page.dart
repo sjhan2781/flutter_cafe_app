@@ -113,8 +113,8 @@ class _CafePageState extends State<CafePage> {
                           centerTitle: false,
                           flexibleSpace: FlexibleSpaceBar(
                             title: Text(cafe.name,
-                                style:
-                                    TextStyle(color: Colors.white, fontSize: 20)),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
                             titlePadding: EdgeInsets.symmetric(
                                 vertical: _verticalTitlePadding,
                                 horizontal: _horizontalTitlePadding),
@@ -136,9 +136,9 @@ class _CafePageState extends State<CafePage> {
                           delegate: SliverChildListDelegate([
                             Column(
                               children: <Widget>[
-                                Padding(padding: EdgeInsets.symmetric(horizontal: 22),
-                                child:
-                                  Column(
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 22),
+                                  child: Column(
                                     children: <Widget>[
                                       SizedBox(height: 23),
                                       cafeInfo('영업시간', cafe.openingHours),
@@ -158,7 +158,8 @@ class _CafePageState extends State<CafePage> {
                                       ),
                                       SizedBox(height: 12),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 57),
+                                        padding:
+                                            const EdgeInsets.only(right: 57),
                                         child: ExpandableText(
                                           cafe.comment,
                                           style: TextStyle(
@@ -173,14 +174,16 @@ class _CafePageState extends State<CafePage> {
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 17),
                                   child: Container(
                                     height: 20,
                                     child: ListView.separated(
-                                        padding: EdgeInsets.symmetric(horizontal: 22),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 22),
                                         scrollDirection: Axis.horizontal,
                                         itemCount: cafe.tags.length,
                                         itemBuilder: (context, index) {
@@ -253,10 +256,77 @@ class _CafePageState extends State<CafePage> {
                     },
                     body: myTabBarView(),
                   ),
-                  _buildFab(),
+                  _buildFab(context),
                 ],
               );
             }),
+      ),
+    );
+  }
+
+  _shareBtnClicked(context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      ),
+      builder: (context) => Container(
+        height: 162,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 14.5,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      '공유하기',
+                      style:
+                          TextStyle(fontSize: 16, color: MyColor.fabIconColor),
+                    ),
+                    Spacer(),
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        borderRadius: BorderRadius.circular(20),
+                        child: Icon(
+                          Icons.close,
+                          color: MyColor.fabIconColor,
+                        )),
+                  ],
+                ),
+              ),
+              Divider(),
+              Expanded(
+                child: Center(
+                  child: FlatButton.icon(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.link,
+                      color: MyColor.textColor,
+                    ),
+                    label: Text(
+                      '링크복사',
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: MyColor.textColor,
+                          letterSpacing: 0.52),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -301,7 +371,7 @@ class _CafePageState extends State<CafePage> {
     );
   }
 
-  Widget _buildFab() {
+  Widget _buildFab(context) {
     //starting fab position
     final double defaultTopMargin = 208.0 - 4.0;
     //pixels from top where scaling should start
@@ -336,7 +406,7 @@ class _CafePageState extends State<CafePage> {
           height: 47,
           child: FittedBox(
             child: new FloatingActionButton(
-              onPressed: () => {},
+              onPressed: () => {_shareBtnClicked(context)},
               backgroundColor: MyColor.fabBackColor,
               child: new Icon(
                 Icons.open_in_new,
