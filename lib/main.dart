@@ -1,3 +1,4 @@
+import 'package:cafe_watcha/cafe_detail_provider.dart';
 import 'package:cafe_watcha/homeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:cafe_watcha/mycolors.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HomeProvider>(create: (BuildContext context)  => HomeProvider()),
+        ChangeNotifierProvider<CafeDetailProvider>(create: (BuildContext context) => CafeDetailProvider(), )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

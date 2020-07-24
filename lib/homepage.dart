@@ -1,3 +1,5 @@
+import 'package:cafe_watcha/cafe.dart';
+import 'package:cafe_watcha/cafe_detali_page.dart';
 import 'package:cafe_watcha/homeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,18 +23,16 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int selectedIndex = 0;
-  HomeProvider cafeProvider;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    cafeProvider = Provider.of<HomeProvider>(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final cafeProvider = Provider.of<HomeProvider>(context);
+    final HomeProvider cafeProvider = Provider.of<HomeProvider>(context);
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -77,15 +77,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CafeCard(snapshot.data[index]);
+                  return CafeCard(snapshot.data[index], () {onCafeClicked(snapshot.data[index]);});
                 });
           },
           future: cafeProvider.loadCafeList(tags[selectedIndex].tag),
         )),
       ],
     );
+  }
 
-//    return CafeCard('Home', 'asd', 4.5);
+  void onCafeClicked(Cafe cafe){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>CafePage(cafe)));
   }
 }
 
