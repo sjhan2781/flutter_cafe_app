@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cafe_watcha/cafe.dart';
+import 'package:cafe_watcha/cafe_detail_info.dart';
 import 'package:cafe_watcha/cafe_detail_provider.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -153,7 +154,9 @@ class _CafePageState extends State<CafePage> {
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          UnderLinedButton('상세정보', () {}),
+                                          UnderLinedButton('상세정보', () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafeDetailInfoPage()));
+                                          }),
                                         ],
                                       ),
                                       SizedBox(height: 12),
