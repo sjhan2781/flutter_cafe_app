@@ -1,0 +1,29 @@
+PODS:
+  - Amplitude (5.2.1)
+  - amplitude_flutter (0.0.1):
+    - Amplitude (= 5.2.1)
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - amplitude_flutter (from `.symlinks/plugins/amplitude_flutter/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - Amplitude
+
+EXTERNAL SOURCES:
+  amplitude_flutter:
+    :path: ".symlinks/plugins/amplitude_flutter/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  Amplitude: 9774e93d48d9f41f271a4479e06369a30ab31db1
+  amplitude_flutter: 5b9cab3f48db637a37d67b93e5dc49fa9b206686
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+
+PODFILE CHECKSUM: f45d293502bdcca725aca7bc62af43ad173e1292
+
+COCOAPODS: 1.9.3
