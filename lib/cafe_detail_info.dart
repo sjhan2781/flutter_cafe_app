@@ -16,6 +16,10 @@ enum TYPE {
 class CafeDetailInfoPage extends StatelessWidget {
 
   final provider = CafeDetailInfoProvider();
+  final cafe;
+
+  CafeDetailInfoPage(this.cafe);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +55,7 @@ class CafeDetailInfoPage extends StatelessWidget {
                               fontSize: 12, color: MyColor.fabIconColor),
                         ),
                         Column(
-                          children: _openingHour(provider.openingHours),
+                          children: _openingHour(cafe.openingHours),
                         )
                       ],
                     ),

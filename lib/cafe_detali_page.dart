@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cafe_watcha/cafe.dart';
 import 'package:cafe_watcha/cafe_detail_info.dart';
 import 'package:cafe_watcha/cafe_detail_provider.dart';
+import 'package:cafe_watcha/price_page.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -53,7 +54,7 @@ class _CafePageState extends State<CafePage> {
 
   double get _verticalTitlePadding {
     const kBasePadding = 14.0;
-    const bottomPadding = 0.0;
+    const bottomPadding = 50.0;
     if (_scrollController.hasClients) {
       if (_scrollController.offset < bottomPadding - kBasePadding) {
         return bottomPadding - _scrollController.offset;
@@ -62,7 +63,7 @@ class _CafePageState extends State<CafePage> {
       return kBasePadding;
     }
 
-    return kBasePadding;
+    return bottomPadding;
   }
 
   @override
@@ -123,14 +124,20 @@ class _CafePageState extends State<CafePage> {
                             background: Stack(
                               children: <Widget>[
                                 MaskedImage('https://picsum.photos/300/200'),
+                                Column(
+                                  children: <Widget>[
+                                    SizedBox(height: 180),
+                                    Expanded(child: tagLists(cafe.tags))
+                                  ],
+                                ),
                               ],
                             ),
                           ),
                           actions: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.map),
-                              onPressed: () {},
-                            )
+//                            IconButton(
+//                              icon: Icon(Icons.map),
+//                              onPressed: () {},
+//                            )
                           ],
                         ),
                         SliverList(
@@ -142,7 +149,7 @@ class _CafePageState extends State<CafePage> {
                                   child: Column(
                                     children: <Widget>[
                                       SizedBox(height: 23),
-                                      cafeInfo('영업시간', cafe.openingHours),
+//                                      cafeInfo('영업시간', cafe.openingHours),
                                       SizedBox(height: 9),
                                       cafeInfo('가      격', cafe.price),
                                       SizedBox(height: 9),
@@ -150,19 +157,25 @@ class _CafePageState extends State<CafePage> {
                                       SizedBox(height: 8),
                                       Row(
                                         children: <Widget>[
-                                          UnderLinedButton('메 뉴 판', () {}),
+                                          RoundedButton('메뉴판', () {
+                                            _showPriceList(context, cafe);
+                                          }),
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          UnderLinedButton('상세정보', () {
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafeDetailInfoPage()));
+                                          RoundedButton('상세정보', () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CafeDetailInfoPage(cafe)));
                                           }),
                                         ],
                                       ),
                                       SizedBox(height: 12),
                                       Padding(
                                         padding:
-                                            const EdgeInsets.only(right: 57),
+                                        const EdgeInsets.only(right: 57),
                                         child: ExpandableText(
                                           cafe.comment,
                                           style: TextStyle(
@@ -179,53 +192,15 @@ class _CafePageState extends State<CafePage> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 17),
-                                  child: Container(
-                                    height: 20,
-                                    child: ListView.separated(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 22),
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: cafe.tags.length,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            onTap: () {},
-                                            splashColor: MyColor.tagButtonColor,
-                                            highlightColor:
-                                                MyColor.tagButtonColor,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(30),
-                                                  border: Border.all(
-                                                      color: MyColor
-                                                          .tagButtonColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 10),
-                                                child: Center(
-                                                  child: Text(
-                                                    cafe.tags[index],
-                                                    style: TextStyle(
-                                                        fontSize: 11,
-                                                        color: MyColor
-                                                            .tagButtonColor),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        separatorBuilder: (context, builder) =>
-                                            SizedBox(
-                                              width: 10,
-                                            )),
-                                  ),
-                                )
+                                SizedBox(height: 17,)
+//                                Padding(
+//                                  padding:
+//                                  const EdgeInsets.symmetric(vertical: 17),
+//                                  child: Container(
+//                                    height: 20,
+//                                    child: tagLists(cafe.tags)
+//                                  ),
+//                                )
                               ],
                             ),
                           ]),
@@ -290,7 +265,7 @@ class _CafePageState extends State<CafePage> {
                     Text(
                       '공유하기',
                       style:
-                          TextStyle(fontSize: 16, color: MyColor.fabIconColor),
+                      TextStyle(fontSize: 16, color: MyColor.fabIconColor),
                     ),
                     Spacer(),
                     InkWell(
@@ -334,6 +309,17 @@ class _CafePageState extends State<CafePage> {
     );
   }
 
+  _showPriceList(context, cafe) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+        ),
+        builder: (context) => PricePage(cafe.beverageList, cafe.dessertList));
+  }
+
   Widget myTabBarView() {
     return TabBarView(
       children: <Widget>[
@@ -348,7 +334,7 @@ class _CafePageState extends State<CafePage> {
                 fit: BoxFit.fill,
               )),
           staggeredTileBuilder: (int index) =>
-              new StaggeredTile.count(1, index % 3 + 1),
+          new StaggeredTile.count(1, index % 3 + 1),
           mainAxisSpacing: 11.0,
           crossAxisSpacing: 11.0,
         ),
@@ -366,7 +352,7 @@ class _CafePageState extends State<CafePage> {
                 ),
               )),
           staggeredTileBuilder: (int index) =>
-              new StaggeredTile.count(1, index.isOdd ? 2 : 1),
+          new StaggeredTile.count(1, index.isOdd ? 2 : 1),
           mainAxisSpacing: 11.0,
           crossAxisSpacing: 11.0,
         )
@@ -461,27 +447,65 @@ class _CafePageState extends State<CafePage> {
       ],
     );
   }
+
+  Widget tagLists(List<String> tags){
+    return ListView.separated(
+        padding: EdgeInsets.symmetric(
+            horizontal: 22),
+        scrollDirection: Axis.horizontal,
+        itemCount: tags.length,
+        itemBuilder: (context, index) {
+          return Container(
+            child: Center(
+              child: Text(
+                '#' + tags[index],
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white),
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, builder) => SizedBox(width: 5,)
+    );
+  }
 }
 
-class UnderLinedButton extends StatelessWidget {
+class RoundedButton extends StatelessWidget {
   final String _text;
   final Function _onPressed;
 
-  UnderLinedButton(this._text, this._onPressed);
+  RoundedButton(this._text, this._onPressed);
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      minSize: 12,
-      onPressed: _onPressed,
-      child: Text(
-        _text,
-        style: TextStyle(
-            color: MyColor.fabIconColor,
-            fontSize: 12,
-            decoration: TextDecoration.underline,
-            letterSpacing: 1),
+    return InkWell(
+      borderRadius:
+      BorderRadius.circular(30),
+      onTap: this._onPressed,
+      splashColor: MyColor.tagButtonColor,
+      highlightColor:
+      MyColor.tagButtonColor,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.circular(30),
+            border: Border.all(
+                color: MyColor
+                    .tagButtonColor)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: 10),
+          child: Center(
+            child: Text(
+              this._text,
+              style: TextStyle(
+                  fontSize: 11,
+                  color: MyColor
+                      .tagButtonColor),
+            ),
+          ),
+        ),
       ),
     );
   }

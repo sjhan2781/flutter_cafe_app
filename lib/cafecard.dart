@@ -55,7 +55,7 @@ class CafeCard extends StatelessWidget {
                         SizedBox(width: 4,),
                         Padding(
                           padding: const EdgeInsets.only(top: 3, bottom: 4),
-                          child: Text(_cafe.rating.toString(), style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0.41),),
+//                          child: Text(_cafe.rating.toString(), style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0.41),),
                         ),
                       ],
                     ),

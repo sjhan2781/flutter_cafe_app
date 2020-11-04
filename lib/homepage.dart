@@ -23,6 +23,14 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int selectedIndex = 0;
+//  HomeProvider cafeProvider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+//    cafeProvider = Provider.of<HomeProvider>(context);
+  }
 
   @override
   void didChangeDependencies() {
@@ -74,13 +82,14 @@ class _HomePageState extends State<HomePage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 4.5,
                   mainAxisSpacing: 4,
+                  childAspectRatio: 1,
                 ),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return CafeCard(snapshot.data[index], () {onCafeClicked(snapshot.data[index]);});
                 });
           },
-          future: cafeProvider.loadCafeList(tags[selectedIndex].tag),
+          future: cafeProvider.filterCafeList(tags[selectedIndex].tag),
         )),
       ],
     );
