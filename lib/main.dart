@@ -100,11 +100,11 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: MyColor.bottomNavigationSelected,
         unselectedItemColor: MyColor.bottomNavigationUnSelected,
         items: [
-          BottomNavigationBarItem(title: Text('홈'), icon: Icon(Icons.home)),
+          BottomNavigationBarItem(title: Text('홈'), icon: Icon(Icons.home_outlined)),
           BottomNavigationBarItem(title: Text('탐험'), icon: Icon(Icons.home)),
-          BottomNavigationBarItem(title: Text('검색'), icon: Icon(Icons.home)),
-          BottomNavigationBarItem(title: Text('소식'), icon: Icon(Icons.home)),
-          BottomNavigationBarItem(title: Text('프로필'), icon: Icon(Icons.home)),
+          BottomNavigationBarItem(title: Text('검색'), icon: Icon(Icons.search_outlined)),
+          BottomNavigationBarItem(title: Text('소식'), icon: Icon(Icons.chat_outlined)),
+          BottomNavigationBarItem(title: Text('프로필'), icon: Icon(Icons.account_circle_outlined)),
         ],
       ),
     );
