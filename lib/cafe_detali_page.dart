@@ -123,7 +123,7 @@ class _CafePageState extends State<CafePage> {
                             centerTitle: false,
                             background: Stack(
                               children: <Widget>[
-                                MaskedImage('https://picsum.photos/300/200'),
+                                MaskedImage(cafe.imgUri),
                                 Column(
                                   children: <Widget>[
                                     SizedBox(height: 180),
