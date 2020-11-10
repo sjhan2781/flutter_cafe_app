@@ -110,6 +110,7 @@ class _CafePageState extends State<CafePage> {
                         SliverAppBar(
                           forceElevated: isScrolled,
                           iconTheme: IconThemeData(color: Colors.white),
+                          backgroundColor: MyColor.fabIconColor,
                           expandedHeight: 230,
                           pinned: true,
                           centerTitle: false,
