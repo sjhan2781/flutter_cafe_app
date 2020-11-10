@@ -9,6 +9,8 @@ class CafeCard extends StatelessWidget {
   Cafe _cafe;
   Function _onTap;
 
+  final double CARD_RADIUS = 8.0;
+
   CafeCard(this._cafe, this._onTap);
 
 //  CafeCard(this._imgUri, this._name, this._rating);
@@ -16,6 +18,7 @@ class CafeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(CARD_RADIUS)),
       child: InkWell(
         splashColor: Colors.redAccent,
         onTap: _onTap,
@@ -24,20 +27,23 @@ class CafeCard extends StatelessWidget {
           height: 182,
           child: Stack(
             children: <Widget>[
-              ShaderMask(
-                shaderCallback: (rect) {
-                  return LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: MyColor.maskGradient)
-                      .createShader(rect);
-                },
-                blendMode: BlendMode.darken,
-                child: Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(_cafe.imgUri),
-                          fit: BoxFit.fill)),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(CARD_RADIUS),
+                child: ShaderMask(
+                  shaderCallback: (rect) {
+                    return LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: MyColor.maskGradient)
+                        .createShader(rect);
+                  },
+                  blendMode: BlendMode.darken,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(_cafe.imgUri),
+                            fit: BoxFit.fill)),
+                  ),
                 ),
               ),
               Padding(
