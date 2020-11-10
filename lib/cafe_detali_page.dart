@@ -149,7 +149,7 @@ class _CafePageState extends State<CafePage> {
                                   child: Column(
                                     children: <Widget>[
                                       SizedBox(height: 23),
-//                                      cafeInfo('영업시간', cafe.openingHours),
+                                      cafeInfo('영업시간', cafe.todayOpening),
                                       SizedBox(height: 9),
                                       cafeInfo('가      격', cafe.price),
                                       SizedBox(height: 9),
