@@ -1,4 +1,4 @@
-import 'package:cafe_watcha/mycolors.dart';
+import 'package:cafe_watcha/ui/mycolors.dart';
 import 'package:flutter/material.dart';
 
 class MaskedImage extends StatelessWidget {

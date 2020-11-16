@@ -1,5 +1,3 @@
-import 'package:cafe_watcha/cafetag.dart';
-
 import 'menu.dart';
 
 class Cafe{

@@ -1,7 +1,7 @@
-import 'package:cafe_watcha/mycolors.dart';
+import 'package:cafe_watcha/ui/mycolors.dart';
 import 'package:flutter/material.dart';
 
-import 'menu.dart';
+import 'model/menu.dart';
 
 class PricePage extends StatelessWidget {
   List<Menu> _beverageList;

@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:cafe_watcha/cafe_detail_info_provider.dart';
-import 'package:cafe_watcha/cafe_info.dart';
-import 'package:cafe_watcha/mycolors.dart';
+import 'package:cafe_watcha/provider/cafe_detail_info_provider.dart';
+import 'package:cafe_watcha/model/cafe_info.dart';
+import 'package:cafe_watcha/ui/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';

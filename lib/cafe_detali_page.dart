@@ -1,14 +1,14 @@
 import 'dart:developer';
 
-import 'package:cafe_watcha/cafe.dart';
-import 'package:cafe_watcha/cafe_detail_info.dart';
-import 'package:cafe_watcha/cafe_detail_provider.dart';
+import 'package:cafe_watcha/model/cafe.dart';
+import 'package:cafe_watcha/cafe_detail_info_page.dart';
+import 'package:cafe_watcha/provider/cafe_detail_provider.dart';
 import 'package:cafe_watcha/price_page.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:cafe_watcha/maskedimage.dart';
-import 'package:cafe_watcha/mycolors.dart';
+import 'package:cafe_watcha/ui/masked_image.dart';
+import 'package:cafe_watcha/ui/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

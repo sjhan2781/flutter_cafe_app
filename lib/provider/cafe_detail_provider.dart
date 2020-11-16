@@ -1,9 +1,8 @@
 import 'package:async/async.dart';
-import 'package:cafe_watcha/CafeTag.dart';
 import 'package:flutter/material.dart';
-import 'package:cafe_watcha/cafe.dart';
+import 'package:cafe_watcha/model/cafe.dart';
 
-import 'menu.dart';
+import '../model/menu.dart';
 
 class CafeDetailProvider with ChangeNotifier {
 

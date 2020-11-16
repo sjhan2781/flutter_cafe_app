@@ -1,11 +1,10 @@
-import 'package:cafe_watcha/cafe.dart';
+import 'package:cafe_watcha/model/cafe.dart';
 import 'package:cafe_watcha/cafe_detali_page.dart';
-import 'package:cafe_watcha/mainprovider.dart';
+import 'package:cafe_watcha/provider/main_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cafe_watcha/cafecard.dart';
-import 'package:cafe_watcha/cafetag.dart';
-import 'package:cafe_watcha/tab.dart';
+import 'package:cafe_watcha/ui/cafe_card.dart';
+import 'package:cafe_watcha/ui/tag_tab.dart';
 
 class HomePage extends StatefulWidget {
   @override

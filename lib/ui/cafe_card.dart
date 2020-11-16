@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cafe_watcha/mycolors.dart';
-import 'package:cafe_watcha/cafe.dart';
+import 'package:cafe_watcha/ui/mycolors.dart';
+import 'package:cafe_watcha/model/cafe.dart';
 
 class CafeCard extends StatelessWidget {
   String _imgUri;

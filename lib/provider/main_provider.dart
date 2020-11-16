@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:cafe_watcha/cafe.dart';
+import 'package:cafe_watcha/model/cafe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
