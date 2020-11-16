@@ -1,5 +1,5 @@
 import 'package:cafe_watcha/cafe_detail_provider.dart';
-import 'package:cafe_watcha/homeprovider.dart';
+import 'package:cafe_watcha/mainprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:cafe_watcha/mycolors.dart';
 import 'package:cafe_watcha/homepage.dart';
@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeProvider>(create: (BuildContext context)  => HomeProvider()),
-        ChangeNotifierProvider<CafeDetailProvider>(create: (BuildContext context) => CafeDetailProvider(), )
+        ChangeNotifierProvider<CafeDetailProvider>(create: (BuildContext context) => CafeDetailProvider(),),
+        ChangeNotifierProvider<MainProvider>(create: (BuildContext context) => MainProvider(),)
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -37,27 +37,33 @@ class MyApp extends StatelessWidget {
                 color: Colors.black),
           ),
         ),
-        home: MyHomePage(title: '신사/압구정'),
+        home: MainPage(),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key key}) : super(key: key);
 
-  String title;
+  List<String> region = ['성수', '합정/망원', '이태원/한남', '가로수길'];
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainPageState extends State<MainPage> {
   int _tabIndex = 0;
+  int selectedRegIdx = 0;
+
   final List<Widget> pages = [HomePage(), ExplorePage(), SearchPage(), NewsPage(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
+    final MainProvider mainProvider = Provider.of<MainProvider>(context);
+
+//    mainProvider.loadCafeList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -66,7 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(widget.title),
+            InkWell(
+              customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(mainProvider.region),
+                ),
+                onTap: () => {_showRegionList(context)}),
             SizedBox(width: 6,),
             ClipOval(
               child: Material(
@@ -74,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: InkWell(
                   splashColor: Colors.red, // inkwell color
                   child: SizedBox(width: 17, height: 17, child: Center(child: Icon(Icons.chevron_right, size: 17, color: Color(0xff222222),))),
-                  onTap: () {},
+                  onTap: () => {_showRegionList(context)},
                 ),
               ),
             )
@@ -88,24 +100,58 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: pages[_tabIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            _tabIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: true,
-        currentIndex: _tabIndex,
-        selectedItemColor: MyColor.bottomNavigationSelected,
-        unselectedItemColor: MyColor.bottomNavigationUnSelected,
-        items: [
-          BottomNavigationBarItem(title: Text('홈'), icon: Icon(Icons.home_outlined)),
-          BottomNavigationBarItem(title: Text('탐험'), icon: Icon(Icons.home)),
-          BottomNavigationBarItem(title: Text('검색'), icon: Icon(Icons.search_outlined)),
-          BottomNavigationBarItem(title: Text('소식'), icon: Icon(Icons.chat_outlined)),
-          BottomNavigationBarItem(title: Text('프로필'), icon: Icon(Icons.account_circle_outlined)),
-        ],
+
+
+//      bottomNavigationBar: BottomNavigationBar(
+//        onTap: (index) {
+//          setState(() {
+//            _tabIndex = index;
+//          });
+//        },
+//        type: BottomNavigationBarType.fixed,
+//        showUnselectedLabels: true,
+//        currentIndex: _tabIndex,
+//        selectedItemColor: MyColor.bottomNavigationSelected,
+//        unselectedItemColor: MyColor.bottomNavigationUnSelected,
+//        items: [
+//          BottomNavigationBarItem(label: '홈', icon: Icon(Icons.home_outlined)),
+//          BottomNavigationBarItem(label: '탐험', icon: Icon(Icons.inbox_outlined)),
+//          BottomNavigationBarItem(label: '검색', icon: Icon(Icons.search_outlined)),
+//          BottomNavigationBarItem(label: '소식', icon: Icon(Icons.chat_outlined)),
+//          BottomNavigationBarItem(label: '프로필', icon: Icon(Icons.account_circle_outlined)),
+//        ],
+//      ),
+    );
+  }
+
+  _showRegionList(context){
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      ),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal : 8.0),
+        child: Container(
+          height: 300,
+          child: GridView.count(
+            crossAxisCount: 2,
+            children: List.generate(widget.region.length, (index) => _regionButton(context, index)),),
+        ),
+      ),
+    );
+  }
+
+  _regionButton(BuildContext context, int index){
+    final provider = Provider.of<MainProvider>(context);
+
+    return Material(
+      child: InkWell(
+        child: Text(widget.region[index]),
+        onTap: (){
+          provider.changeRegion(index);
+          Navigator.pop(context);
+          },
       ),
     );
   }

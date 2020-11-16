@@ -1,6 +1,6 @@
 import 'package:cafe_watcha/cafe.dart';
 import 'package:cafe_watcha/cafe_detali_page.dart';
-import 'package:cafe_watcha/homeprovider.dart';
+import 'package:cafe_watcha/mainprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cafe_watcha/cafecard.dart';
@@ -13,23 +13,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<CafeTag> tags = [
-    CafeTag('전체'),
-    CafeTag('Best 20'),
-    CafeTag('데이트'),
-    CafeTag('놀거리'),
-    CafeTag('커피가 맛있는'),
-    CafeTag('무언가'),
-  ];
-
-  int selectedIndex = 0;
-//  HomeProvider cafeProvider;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-//    cafeProvider = Provider.of<HomeProvider>(context);
   }
 
   @override
@@ -40,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeProvider cafeProvider = Provider.of<HomeProvider>(context);
+    final MainProvider mainProvider = Provider.of<MainProvider>(context);
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -53,13 +40,11 @@ class _HomePageState extends State<HomePage> {
           child: ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: 13.0),
             scrollDirection: Axis.horizontal,
-            itemCount: tags.length,
+            itemCount: mainProvider.tagLength,
             itemBuilder: (BuildContext context, int index) {
-              return MyTabWidget(tags[index].tag, () {
-                setState(() {
-                  selectedIndex = index;
-                });
-              }, selectedIndex == index);
+              return MyTabWidget(mainProvider.getTagFromIndex(index), () {
+                mainProvider.setSelectedTagIdx(index);
+              }, mainProvider.isTagSelected(index));
             },
             separatorBuilder: (BuildContext context, int index) => SizedBox(
               width: 20,
@@ -89,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   return CafeCard(snapshot.data[index], () {onCafeClicked(snapshot.data[index]);});
                 });
           },
-          future: cafeProvider.filterCafeList(tags[selectedIndex].tag),
+          future: mainProvider.getFilteredCafeList(),
         )),
       ],
     );

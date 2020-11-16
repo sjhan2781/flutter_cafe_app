@@ -47,6 +47,8 @@ class Cafe{
     comment = getNullableString(json['comment']);
     address = getNullableString(json['address']);
     price = getNullableString(json['price']);
+    String tagStr = json['tags'];
+    tags = tagStr == null ? List<String>() : tagStr.split(',');
   }
 
   static String getNullableString(str){
