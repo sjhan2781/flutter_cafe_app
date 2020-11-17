@@ -44,10 +44,22 @@ class MainProvider with ChangeNotifier {
 
   Future<void> loadCafeList() async {
     if (_cafeMap[region].isEmpty) {
-      final url =
-          'https://q20cuaup4j.execute-api.ap-northeast-2.amazonaws.com/test1/mytest';
-      var response = await http.post(url,
-          body: jsonEncode({'region_id': _selectedRegIdx + 1}),
+
+      //post방식 예시
+//      final url =
+//          'https://q20cuaup4j.execute-api.ap-northeast-2.amazonaws.com/test1/mytest';
+//          var response = await http.post(url,
+//          body: jsonEncode({'region_id': _selectedRegIdx + 1}),
+//          headers: {'Content-Type': "application/json"});
+
+      var parameters = {
+        'region_id' : '${_selectedRegIdx + 1}'
+      };
+
+      var uri = Uri.https(
+          'q20cuaup4j.execute-api.ap-northeast-2.amazonaws.com', '/test1/mytest', parameters);
+
+      var response = await http.get(uri,
           headers: {'Content-Type': "application/json"});
 
       var encodedBody = utf8.decode(response.bodyBytes);
