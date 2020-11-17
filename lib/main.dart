@@ -1,7 +1,6 @@
 import 'package:cafe_watcha/provider/cafe_detail_provider.dart';
 import 'package:cafe_watcha/main_page.dart';
 import 'package:cafe_watcha/provider/main_provider.dart';
-import 'package:cafe_watcha/ui/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +24,6 @@ class MyApp extends StatelessWidget {
           primaryTextTheme: TextTheme(headline6: TextStyle(color: Colors.black)),
           primaryIconTheme: IconThemeData(color: Colors.black),
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          accentColor: MyColor.fabIconColor,
           textTheme: TextTheme(
             bodyText1: TextStyle(
                 fontSize: 16,
