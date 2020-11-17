@@ -29,8 +29,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final MainProvider mainProvider = Provider.of<MainProvider>(context);
 
-//    mainProvider.loadCafeList();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -92,17 +90,31 @@ class _MainPageState extends State<MainPage> {
   }
 
   _showRegionList(context){
+//    return DraggableScrollableSheet(builder: (context, scrollController) {
+//      return GridView.count(
+//        padding: EdgeInsets.symmetric(horizontal : 8.0, vertical: 10.0),
+//        crossAxisCount: 2,
+//        childAspectRatio: 3,
+//        children: List.generate(widget.region.length, (index) => _regionButton(context, index)),);
+//    },);
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
       ),
-      builder: (context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal : 8.0),
-        child: Container(
-          height: 300,
+      builder: (context) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.2, // half screen on load
+        maxChildSize: 1,       // full screen on scroll
+        minChildSize: 0.2,
+        builder: (BuildContext context, ScrollController scrollController)
+        => Container(
           child: GridView.count(
+            controller: scrollController,
+            padding: EdgeInsets.symmetric(horizontal : 8.0, vertical: 10.0),
             crossAxisCount: 2,
+            childAspectRatio: 3,
             children: List.generate(widget.region.length, (index) => _regionButton(context, index)),),
         ),
       ),
@@ -111,10 +123,10 @@ class _MainPageState extends State<MainPage> {
 
   _regionButton(BuildContext context, int index){
     final provider = Provider.of<MainProvider>(context);
-
     return Material(
       child: InkWell(
-        child: Text(widget.region[index]),
+        customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: Center(child: Text(widget.region[index])),
         onTap: (){
           provider.changeRegion(index);
           Navigator.pop(context);
